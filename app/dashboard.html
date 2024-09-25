@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora Web</title>
+  <style>
+    .calculator {
+      width: 200px;
+      margin: 50px auto;
+    }
+    .screen {
+      width: 100%;
+      height: 40px;
+      text-align: right;
+      font-size: 24px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    .button {
+      width: 45px;
+      height: 45px;
+      margin: 5px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+<div class="calculator">
+  <input type="text" id="screen" class="screen" readonly>
+  <div>
+    <button class="button" onclick="appendValue('1')">1</button>
+    <button class="button" onclick="appendValue('2')">2</button>
+    <button class="button" onclick="appendValue('3')">3</button>
+    <button class="button" onclick="appendValue('+')">+</button>
+  </div>
+  <div>
+    <button class="button" onclick="appendValue('4')">4</button>
+    <button class="button" onclick="appendValue('5')">5</button>
+    <button class="button" onclick="appendValue('6')">6</button>
+    <button class="button" onclick="appendValue('-')">-</button>
+  </div>
+  <div>
+    <button class="button" onclick="appendValue('7')">7</button>
+    <button class="button" onclick="appendValue('8')">8</button>
+    <button class="button" onclick="appendValue('9')">9</button>
+    <button class="button" onclick="appendValue('*')">*</button>
+  </div>
+  <div>
+    <button class="button" onclick="clearScreen()">C</button>
+    <button class="button" onclick="appendValue('0')">0</button>
+    <button class="button" onclick="calculate()">=</button>
+    <button class="button" onclick="appendValue('/')">/</button>
+  </div>
+</div>
+
+<script>
+  let screen = document.getElementById('screen');
+
+  function appendValue(value) {
+    screen.value += value;
+  }
+
+  function clearScreen() {
+    screen.value = '';
+  }
+
+  function calculate() {
+    try {
+      // Anomalía intencional 1: Sin validación de división entre 0
+      screen.value = eval(screen.value);
+    } catch (error) {
+      // Anomalía intencional 2: No se maneja adecuadamente el error
+      screen.value = 'Error';
+    }
+  }
+</script>
+</body>
+</html>
