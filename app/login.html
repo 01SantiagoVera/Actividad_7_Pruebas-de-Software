@@ -1,36 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Sistema de Login</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #f4f4f4;
-    }
-    .login-container {
-      width: 300px;
-      padding: 20px;
-      background-color: white;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-    }
-    .error {
-      color: red;
-      font-size: 14px;
-      display: none;
-    }
-  </style>
+
 </head>
 <body>
 <div class="login-container">
@@ -41,20 +16,7 @@
   <div id="error" class="error">Credenciales incorrectas</div>
 </div>
 
-<script>
-  function login() {
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-
-    // Anomalía intencional 1: No se valida si los campos están vacíos
-    if (username === 'admin' && password === '1234') {
-      window.location.href = "dashboard.html";
-    } else {
-      document.getElementById('error').style.display = 'block';
-    }
-
-    // Anomalía intencional 2: Sin límite en intentos de inicio de sesión
-  }
-</script>
+<script src="../js/Login.js"></script>
+<link rel="stylesheet" href="../css/Login.css">
 </body>
 </html>
