@@ -1,160 +1,247 @@
-body {
-  font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start; 
-  height: 100vh; 
-  margin: 0; 
-  background-image: url("/img/fondo.jpg"); 
-  background-size: cover; 
-  background-repeat: no-repeat; 
-  background-position: center top; 
+/*! HTML5 Boilerplate v9.0.1 | MIT License | https://html5boilerplate.com/ */
+
+/* main.css 3.0.0 | MIT License | https://github.com/h5bp/main.css#readme */
+/*
+ * What follows is the result of much research on cross-browser styling.
+ * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+ * Kroc Camen, and the H5BP dev community and team.
+ */
+
+/* ==========================================================================
+   Base styles: opinionated defaults
+   ========================================================================== */
+
+html {
+  color: #222;
+  font-size: 1em;
+  line-height: 1.4;
 }
 
-.wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  height: 100%;
-  width: 100%;  
+/*
+ * Remove text-shadow in selection highlight:
+ * https://twitter.com/miketaylr/status/12228805301
+ *
+ * Customize the background color to match your design.
+ */
+
+::-moz-selection {
+  background: #b3d4fc;
+  text-shadow: none;
 }
 
-.login-container {
-  width: 400px;
-  text-align: center;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.211); 
-  backdrop-filter: blur(10px); 
-  border-radius: 8px; 
-  margin-top: 200px; 
-  position: relative; 
-  border: 5px solid white; 
+::selection {
+  background: #b3d4fc;
+  text-shadow: none;
 }
 
-label {
-  font-weight: bold; 
+/*
+ * A better looking default horizontal rule
+ */
+
+hr {
   display: block;
-  margin: 10px 0 5px; 
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
 }
 
-input {
-  width: calc(100% - 20px); 
-  padding: 10px;
-  border: none; 
-  border-bottom: 3px solid black; 
-  border-radius: 0; 
-  background: transparent; 
+/*
+ * Remove the gap between audio, canvas, iframes,
+ * images, videos and the bottom of their containers:
+ * https://github.com/h5bp/html5-boilerplate/issues/440
+ */
+
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+  vertical-align: middle;
 }
 
-input::placeholder {
-  color: black; /* informacion en el contenedor */
-  background-color: transparent;
-  font-weight: bold;  
-  opacity: 1; 
-}
-.password-container {
-  position: relative; 
+/*
+ * Remove default fieldset styles.
+ */
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
 }
 
-.toggle-password {
+/*
+ * Allow only vertical resizing of textareas.
+ */
+
+textarea {
+  resize: vertical;
+}
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+/*
+ * Hide visually and from screen readers
+ */
+
+.hidden,
+[hidden] {
+  display: none !important;
+}
+
+/*
+ * Hide only visually, but have it available for screen readers:
+ * https://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+ *
+ * 1. For long content, line feeds are not interpreted as spaces and small width
+ *    causes content to wrap 1 word per line:
+ *    https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe
+ */
+
+.visually-hidden {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
   position: absolute;
-  top: 50%; 
-  right: 10px; 
-  transform: translateY(-50%);
-  cursor: pointer; 
-  color: black; 
+  white-space: nowrap;
+  width: 1px;
+  /* 1 */
 }
 
-.login-button {
-  width: 50%; 
-  padding: 10px;
-  margin-top: 20px;
-  background: linear-gradient(135deg, #4e0075, #74089b);
-  color: white; 
-  border: none;
-  border-radius: 5px; 
-  font-weight: bold;
-  cursor: pointer; 
-  transition: background-color 0.3s ease; 
+/*
+ * Extends the .visually-hidden class to allow the element
+ * to be focusable when navigated to via the keyboard:
+ * https://www.drupal.org/node/897638
+ */
+
+.visually-hidden.focusable:active,
+.visually-hidden.focusable:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  white-space: inherit;
+  width: auto;
 }
 
-.login-button:hover {
-  color: black;
+/*
+ * Hide visually and from screen readers, but maintain layout
+ */
+
+.invisible {
+  visibility: hidden;
 }
 
-.error {
-  color: red;
-  font-size: 14px;
-  display: none; 
+/*
+ * Clearfix: contain floats
+ *
+ * The use of `table` rather than `block` is only necessary if using
+ * `::before` to contain the top-margins of child elements.
+ */
+
+.clearfix::before,
+.clearfix::after {
+  content: "";
+  display: table;
 }
 
-.image {
-  position: absolute; 
-  top: 10px; 
-  left: 20px; 
-  width: 150px; 
-  height: auto; 
-  z-index: 10;
+.clearfix::after {
+  clear: both;
 }
 
-.register-button {
-  position: absolute; 
-  top: 25px;
-  right: 20px; 
-  padding: 10px 20px; 
-  background-color: rgba(14, 14, 14, 0.414); 
-  border: 5px solid white; 
-  color: white; 
-  border-radius: 5px; 
-  font-family: 'Inter', sans-serif; 
-  font-weight: 700; 
-  cursor: pointer; 
-  z-index: 10; 
-  transition: background-color 0.3s ease, color 0.3s ease; 
-  font-size: 20px;
+/* ==========================================================================
+   EXAMPLE Media Queries for Responsive Design.
+   These examples override the primary ('mobile first') styles.
+   Modify as content requires.
+   ========================================================================== */
+
+@media only screen and (min-width: 35em) {
+  /* Style adjustments for viewports that meet the condition */
 }
 
-.register-button:hover {
-  background-color: #ffffff;
-  color: black;
+@media print,
+  (-webkit-min-device-pixel-ratio: 1.25),
+  (min-resolution: 1.25dppx),
+  (min-resolution: 120dpi) {
+  /* Style adjustments for high resolution devices */
 }
 
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer; 
-  font-size: 18px;
-}
-.error {
-  display: none; /* Oculto por defecto */
-  padding: 15px;
-  margin: 20px 0;
-  background-color: rgba(255, 0, 0, 0.8); /* Rojo semitransparente */
-  color: white;
-  border-radius: 5px;
-  position: relative; /* Para la animación */
-  animation: fadeIn 0.5s, fadeOut 0.5s 2.5s; /* Animaciones de entrada y salida */
-}
+/* ==========================================================================
+   Print styles.
+   Inlined to avoid the additional HTTP request:
+   https://www.phpied.com/delay-loading-your-print-css/
+   ========================================================================== */
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: #fff !important;
+    color: #000 !important;
+    /* Black prints faster */
+    box-shadow: none !important;
+    text-shadow: none !important;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+  }
+
+  abbr[title]::after {
+    content: " (" attr(title) ")";
+  }
+
+  /*
+   * Don't show links that are fragment identifiers,
+   * or use the `javascript:` pseudo protocol
+   */
+  a[href^="#"]::after,
+  a[href^="javascript:"]::after {
+    content: "";
+  }
+
+  pre {
+    white-space: pre-wrap !important;
+  }
+
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2,
+  h3 {
+    page-break-after: avoid;
   }
 }
 
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-}
