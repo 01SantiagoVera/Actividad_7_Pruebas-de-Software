@@ -1,5 +1,5 @@
 function logout() {
-  window.location.href = "index.html"; 
+  window.location.href = "../index.html";
 }
 
 let screen = document.getElementById('screen');
