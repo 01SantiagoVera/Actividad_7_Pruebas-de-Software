@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pruebas de Login</title>
+  <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.17.2.css">
+
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="https://code.jquery.com/qunit/qunit-2.17.2.js"></script>
+  <script>
+    // Función de login modificada
+    let attemptCount = 0;
+    const users = [
+      { username: "user1", password: "pass1" },
+      { username: "user2", password: "pass2" },
+      { username: "user3", password: "pass3" },
+      { username: "user4", password: "pass4" },
+      { username: "user5", password: "pass5" }
+    ];
+
+    function login() {
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        if (username === "admin" && password === "1234") {
+          window.location.href = "dashboard.html";
+        } else {
+          attemptCount++;
+        if (attemptCount == 5) {
+          document.getElementById("error").innerText = "Cuenta bloqueada después de 5 intentos fallidos";
+          document.getElementById("error").style.display = 'block';
+          return false;
+        }
+        document.getElementById("error").style.display = 'block';
+        return false;
+      }
+    }
+    QUnit.test('Prueba de intentos fallidos con 5 usuarios distintos', function(assert) {
+        
+      const invalidCredentials = [
+        { username: "user1", password: "1234" },
+        { username: "user2", password: "wrongpass" },
+        { username: "user3", password: "wrongpass" },
+        { username: "user4", password: "wrongpass" },
+        { username: "user5", password: "wrongpass" }
+      ];
+
+      invalidCredentials.forEach(credentials => {
+        let username = document.createElement("input");
+        username.setAttribute("id", "username");
+        document.body.appendChild(username);
+
+        let password = document.createElement("input");
+        password.setAttribute("id", "password");
+        document.body.appendChild(password);
+
+        let errorDiv = document.createElement("div");
+        errorDiv.setAttribute("id", "error");
+        errorDiv.style.display = "none";
+        document.body.appendChild(errorDiv);
+        
+        document.getElementById('username').value = credentials.username;
+        document.getElementById('password').value = credentials.password;
+        login(credentials.username, credentials.password);
+      });
+
+      assert.equal(document.getElementById("error").innerText, "Cuenta bloqueada después de 5 intentos fallidos", 'Se muestra error después de 5 intentos fallidos con diferentes usuarios');
+    });
+  </script>
+</body>
+  
+</head>
+<body

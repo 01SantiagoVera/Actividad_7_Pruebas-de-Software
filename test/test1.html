@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="utf-8" />
+  <title>QUnit</title>
+  <link
+    rel="stylesheet"
+    href="https://code.jquery.com/qunit/qunit-2.22.0.css"
+  />
+  <body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+    <script src="https://code.jquery.com/qunit/qunit-2.22.0.js"></script>
+    <script>
+      function login() {
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        // Anomalía intencional 1: No se valida si los campos están vacíos
+        if (username === "admin" && password === "1234") {
+          window.location.href = "dashboard.html";
+        } else {
+          document.getElementById("error").style.display = "block";
+        }
+      }
+      QUnit.test("Validación de Campos Vacíos", function (assert) {
+        // Caso 1: Ambos campos vacíos
+        document.getElementById("username").value = "";
+        document.getElementById("password").value = "";
+        login();
+        assert.ok(
+          document.getElementById("error").style.display === "block",
+          "Se muestra error cuando ambos campos están vacíos"
+        );
+
+        // Caso 2: Campo de contraseña vacío
+        document.getElementById("username").value = "admin";
+        document.getElementById("password").value = "";
+        login();
+        assert.ok(
+          document.getElementById("error").style.display === "block",
+          "Se muestra error cuando el campo de contraseña está vacío"
+        );
+
+        // Caso 3: Campo de usuario vacío
+        document.getElementById("username").value = "";
+        document.getElementById("password").value = "1234";
+        login();
+        assert.ok(
+          document.getElementById("error").style.display === "block",
+          "Se muestra error cuando el campo de usuario está vacío"
+        );
+      });
+    </script>
+  </body>
+</html>
