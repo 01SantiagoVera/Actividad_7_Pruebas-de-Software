@@ -5,9 +5,35 @@ function login(event) {
   const password = document.getElementById('password').value;
   const errorDiv = document.getElementById('error');
 
-  // Aquí es donde deberías enviar la solicitud al servidor
+  // Anomalía intencional 1: Sin validación de entradas vacías
   if (username === 'admin' && password === '1234') {
-    window.location.href = "../app/dashboard.html";
+    // Aquí es donde deberías enviar la solicitud al servidor
+    fetch('/Login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username, password }) // Enviar las credenciales como JSON
+    })
+      .then(response => {
+        if (response.ok) {
+          // Si las credenciales son correctas, redirige a dashboard
+          window.location.href = '../app/dashboard.html';
+        } else {
+          // Si las credenciales son incorrectas, muestra la alerta
+          errorDiv.style.display = 'block';
+          errorDiv.style.animation = 'fadeIn 0.5s';
+          setTimeout(() => {
+            errorDiv.style.animation = 'fadeOut 0.5s';
+            setTimeout(() => {
+              errorDiv.style.display = 'none';
+            }, 500);
+          }, 3000);
+        }
+      })
+      .catch(error => {
+        console.error('Error en la solicitud:', error);
+      });
   } else {
     // Mostrar alerta de error
     errorDiv.style.display = 'block';
@@ -20,8 +46,9 @@ function login(event) {
     }, 3000);
   }
 
-// Anomalía intencional 2: Sin límite en intentos de inicio de sesión
+  // Anomalía intencional 2: Sin límite en intentos de inicio de sesión
 }
+
 
 // Boton registro
 document.getElementById('registerButton').addEventListener('click', function() {

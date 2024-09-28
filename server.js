@@ -21,7 +21,7 @@ app.post('/Login', (req, res) => {
   // Verifica las credenciales
   if (username === 'admin' && password === '1234') {
     // Si las credenciales son correctas, redirige al dashboard
-    res.redirect('app/dashboard.html'); // Ajusta la ruta según sea necesario
+    res.sendStatus(200).send('credenciales correctas')
   } else {
     // Si las credenciales son incorrectas, responde con un mensaje de error
     res.status(401).send('Credenciales incorrectas');
