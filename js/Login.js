@@ -1,11 +1,15 @@
 function login(event) {
-  event.preventDefault(); // Evitar el envío del formulario
+  if (event) {
+    event.preventDefault();
+  }
 
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
   const errorDiv = document.getElementById('error');
 
   // Anomalía intencional 1: Sin validación de entradas vacías
+
+
   if (username === 'admin' && password === '1234') {
     // Aquí es donde deberías enviar la solicitud al servidor
     fetch('/Login', {

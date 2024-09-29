@@ -3,72 +3,62 @@
 <head>
   <title>Pruebas de Login</title>
   <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.17.2.css">
-
+</head>
 <body>
-  <div id="qunit"></div>
-  <div id="qunit-fixture"></div>
-  <script src="https://code.jquery.com/qunit/qunit-2.17.2.js"></script>
-  <script>
-    // Función de login modificada
-    let attemptCount = 0;
-    const users = [
-      { username: "user1", password: "pass1" },
-      { username: "user2", password: "pass2" },
-      { username: "user3", password: "pass3" },
-      { username: "user4", password: "pass4" },
-      { username: "user5", password: "pass5" }
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+<script src="https://code.jquery.com/qunit/qunit-2.17.2.js"></script>
+<script src="../js/Login.js"></script>
+<script>
+  // Función de login modificada
+  let attemptCount = 0;
+  const users = [
+    { username: "user1", password: "pass1" },
+    { username: "user2", password: "pass2" },
+    { username: "user3", password: "pass3" },
+    { username: "user4", password: "pass4" },
+    { username: "user5", password: "pass5" }
+  ];
+
+  // Crear los elementos de entrada y error solo una vez
+  let usernameInput = document.createElement("input");
+  usernameInput.setAttribute("id", "username");
+  document.body.appendChild(usernameInput);
+
+  let passwordInput = document.createElement("input");
+  passwordInput.setAttribute("id", "password");
+  document.body.appendChild(passwordInput);
+
+  let errorDiv = document.createElement("div");
+  errorDiv.setAttribute("id", "error");
+  errorDiv.style.display = "none";
+  document.body.appendChild(errorDiv);
+
+  QUnit.test('Prueba de intentos fallidos con 5 usuarios distintos', function(assert) {
+    const invalidCredentials = [
+      { username: "user1", password: "1234" },
+      { username: "user2", password: "wrongpass" },
+      { username: "user3", password: "wrongpass" },
+      { username: "user4", password: "wrongpass" },
+      { username: "user5", password: "wrongpass" }
     ];
 
-    function login() {
-        const username = document.getElementById("username").value;
-        const password = document.getElementById("password").value;
+    // Reiniciar el contador de intentos y el mensaje de error
+    attemptCount = 0;
+    errorDiv.style.display = "none"; // Ocultar el div de error
 
-        if (username === "admin" && password === "1234") {
-          window.location.href = "dashboard.html";
-        } else {
-          attemptCount++;
-        if (attemptCount == 5) {
-          document.getElementById("error").innerText = "Cuenta bloqueada después de 5 intentos fallidos";
-          document.getElementById("error").style.display = 'block';
-          return false;
-        }
-        document.getElementById("error").style.display = 'block';
-        return false;
-      }
-    }
-    QUnit.test('Prueba de intentos fallidos con 5 usuarios distintos', function(assert) {
-        
-      const invalidCredentials = [
-        { username: "user1", password: "1234" },
-        { username: "user2", password: "wrongpass" },
-        { username: "user3", password: "wrongpass" },
-        { username: "user4", password: "wrongpass" },
-        { username: "user5", password: "wrongpass" }
-      ];
+    invalidCredentials.forEach(credentials => {
+      // Asignar valores a los inputs
+      document.getElementById('username').value = credentials.username;
+      document.getElementById('password').value = credentials.password;
 
-      invalidCredentials.forEach(credentials => {
-        let username = document.createElement("input");
-        username.setAttribute("id", "username");
-        document.body.appendChild(username);
-
-        let password = document.createElement("input");
-        password.setAttribute("id", "password");
-        document.body.appendChild(password);
-
-        let errorDiv = document.createElement("div");
-        errorDiv.setAttribute("id", "error");
-        errorDiv.style.display = "none";
-        document.body.appendChild(errorDiv);
-        
-        document.getElementById('username').value = credentials.username;
-        document.getElementById('password').value = credentials.password;
-        login(credentials.username, credentials.password);
-      });
-
-      assert.equal(document.getElementById("error").innerText, "Cuenta bloqueada después de 5 intentos fallidos", 'Se muestra error después de 5 intentos fallidos con diferentes usuarios');
+      // Crear un evento
+      const event = new Event('submit'); // Simulando el evento
+      login(event);
     });
-  </script>
+
+    assert.equal(errorDiv.innerText, "Cuenta bloqueada despues de 5 intentos fallidos", 'Se muestra error despues de 5 intentos fallidos con diferentes usuarios');
+  });
+</script>
 </body>
-  
-</head>
-<body
+</html>
