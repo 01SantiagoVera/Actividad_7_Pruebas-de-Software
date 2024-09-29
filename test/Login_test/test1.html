@@ -10,7 +10,7 @@
 <div id="qunit-fixture"></div>
 
 <script src="https://code.jquery.com/qunit/qunit-2.22.0.js"></script>
-<script src="../js/Login.js"></script>
+<script src="../../js/Login.js"></script>
 <script>
   QUnit.test("Validación de Campos Vacíos", function (assert) {
     // Agregamos los elementos dinámicamente para la prueba
@@ -29,7 +29,7 @@
 
 
     // Caso 1: Ambos campos vacíos
-    document.getElementById("username").value = "";
+    document.getElementById("username").value = " ";
     document.getElementById("password").value = "";
     login(); // Llamada sin evento
     assert.ok(
