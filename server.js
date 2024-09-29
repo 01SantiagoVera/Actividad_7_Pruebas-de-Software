@@ -9,6 +9,13 @@ app.use(bodyParser.urlencoded({ extended: true })); // Para formularios URL-enco
 app.use(bodyParser.json()); // Para formularios JSON
 app.use(express.static(path.join(__dirname))); // Sirve archivos estáticos
 
+// Middleware para manejar errores
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Error en el servidor');
+});
+
+
 // Ruta para servir el index.html
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));

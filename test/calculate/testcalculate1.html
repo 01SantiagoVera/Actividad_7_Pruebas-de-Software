@@ -6,24 +6,27 @@
   <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.22.0.css" />
 </head>
 <body>
-    <div id="qunit-fixture">
-        <input type="text" id="screen" class="screen" readonly>
-    </div>
-    
-<div id="qunit"></div>
 
+
+<div id="qunit"></div>
+<input type="text" id="screen" readonly />
 <script src="https://code.jquery.com/qunit/qunit-2.22.0.js"></script>
 <script src="../../js/Calculate.js"></script>
 <script>
 // Verificacion de los requerimientos Funcionales
 //Primer requerimiento funcional: 1. Operaciones Básicas:
-QUnit.test("Prueba de Operaciones Básicas", function(assert) {
-            let screen = document.getElementById('screen');
 
-            // Prueba de Suma
-            appendValue(2+3);
-            calculate();
-            assert.equal(screen.value, '5', "La suma 2+3 debería ser 5");
+QUnit.test("Pruebas de operaciones básicas", function(assert) {
+  let screen = document.getElementById('screen');
+  clearScreen();
+
+  appendValue("2+3");
+  calculate();
+  assert.equal(screen.value, '5', "La suma 2+3 debería ser 5");
+
 
 });
+
 </script>
+</body>
+</html>
