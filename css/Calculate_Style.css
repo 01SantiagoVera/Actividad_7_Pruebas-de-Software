@@ -40,6 +40,11 @@ body {
   transition: background-color 0.3s; 
 }
 
+.operations {
+margin-top:-220px;
+margin-left: 180px;
+}
+
 .button:hover {
   background-color: #03cdff; 
 }
