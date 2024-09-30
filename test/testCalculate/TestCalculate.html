@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>QUnit</title>
+<link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.22.0.css" />
+<input type="text" id="screen" class="screen" readonly>
+<div id="qunit"></div>
+<script src="https://code.jquery.com/qunit/qunit-2.22.0.js"></script>
+<script src="../../js/Calculate.js"></script>
+<script>
+// Verificacion de los requerimientos Funcionales
+//Primer requerimiento funcional: 1. Operaciones Básicas
+QUnit.test("Prueba de Operaciones Básicas", function(assert) {
+    let screen = document.getElementById('screen');
+
+    // 1. Prueba de Suma
+    clearScreen(); 
+    appendValue("2+3"); 
+    calculate(); 
+    assert.equal(screen.value, '5', "La suma 2+3 debería ser 5");
+
+    // 2. Prueba de Suma valores Negativos
+    clearScreen(); 
+    appendValue("-2+-5"); 
+    calculate();
+    assert.equal(screen.value, '-7', "La suma -2+-5 debería ser -7");
+
+    // 3. Prueba de Suma negativo y positivo
+    clearScreen(); 
+    appendValue("-8+3"); 
+    calculate(); 
+    assert.equal(screen.value, '-5', "La suma -8+3 debería ser -5");
+
+    
+    // 4. Prueba de Suma con el número 0
+    clearScreen(); 
+    appendValue("2+0"); 
+    calculate(); 
+    assert.equal(screen.value, '2', "La suma 2+0 debería ser 2");
+
+    // 5. Prueba de Resta simple
+    clearScreen(); 
+    appendValue("15-5"); 
+    calculate(); 
+    assert.equal(screen.value, '10', "La resta 15-5 debería ser 10");
+
+    // 6. Prueba de Resta de un número negativo
+    clearScreen(); 
+    appendValue("-8-3"); 
+    calculate(); 
+    assert.equal(screen.value, '-11', "La resta -8-3 debería ser -11");
+
+    // 7. Prueba de Resta con resultado negativo
+    clearScreen(); 
+    appendValue("12-20"); 
+    calculate(); 
+    assert.equal(screen.value, '-8', "La resta 12-20 debería ser -8");
+
+    // 8. Prueba de Multiplicación simple
+    clearScreen(); 
+    appendValue("7*3"); 
+    calculate(); 
+    assert.equal(screen.value, '21', "La multiplicación 7*3 debería ser 21");
+
+    // 9. Prueba de Multiplicación con un número negativo
+    clearScreen(); 
+    appendValue("-4*6"); 
+    calculate(); 
+    assert.equal(screen.value, '-24', "La multiplicación -4*6 debería ser -24");
+
+    // 10. Prueba de Multiplicación con el número 0
+    clearScreen(); 
+    appendValue("0*8"); 
+    calculate(); 
+    assert.equal(screen.value, '0', "La multiplicación 0*8 debería ser 0");
+
+    // 11. Prueba de División simple
+    clearScreen(); 
+    appendValue("12/4"); 
+    calculate(); 
+    assert.equal(screen.value, '3', "La división 12/4 debería ser 3");
+
+    // 12. Prueba de División con un número negativo
+    clearScreen(); 
+    appendValue("-16/4"); 
+    calculate(); 
+    assert.equal(screen.value, '-4', "La división -16/4 debería ser -4");
+
+    // 13. Prueba de División con el número 0
+    clearScreen(); 
+    appendValue("0/5"); 
+    calculate(); 
+    assert.equal(screen.value, '0', "La división 0/5 debería ser 0");
+
+    // 14. Prueba de División con resultado entero
+    clearScreen(); 
+    appendValue("27/9"); 
+    calculate(); 
+    assert.equal(screen.value, '3', "La división 27/9 debería ser 3");
+
+    // 15. Prueba de División por Cero
+    clearScreen(); 
+    appendValue("5/0"); 
+    calculate(); 
+    assert.equal(screen.value, 'Infinity', "La división 5/0 debería dar error");
+});
+
+// Verificacion de los requerimientos Funcionales
+//Primer requerimiento funcional: 2. Entrada de numeros
+QUnit.test("Prueba de Entrada de Números", function(assert) {
+    let screen = document.getElementById('screen');
+    
+    // 1. Prueba de entrada numérica
+    clearScreen(); 
+    appendValue('7');
+    assert.equal(screen.value, "7", "El número '7' debería verse");
+    
+    // 2. Prueba de entrada numérica
+    appendValue('8');
+    assert.equal(screen.value, "78", "El número '8' debería concatenarse y mostrar '78'");
+
+    // 3. Prueba de entrada numérica negativa
+    appendValue('-98');
+    assert.equal(screen.value, "78-98", "El número '-98' debería concatenarse y mostrar '78-98'");
+    
+    // 4. Prueba de entrada numérica con operador
+    clearScreen();
+    appendValue('809');
+    assert.equal(screen.value, "809", "El número '809' debería verse");
+
+    appendValue('+');
+    assert.equal(screen.value, "809+", "El operador '+' debería concatenarse y mostrar '809+'");
+    
+    appendValue('2');
+    assert.equal(screen.value, "809+2", "El número '2' debería concatenarse y mostrar '809+2'");
+
+    // 5. Prueba de entrada numérica con operador
+    clearScreen();
+    appendValue('+');
+    assert.equal(screen.value, "+", "El operador '+' debería verse '+'");
+
+    appendValue('809');
+    assert.equal(screen.value, "+809", "El número '+809' debería verse");
+
+    appendValue('-');
+    assert.equal(screen.value, "+809-", "El operador '+' debería concatenarse y mostrar '+809-'");
+    
+    // 6. Prueba de concatenación de otros operadores
+    clearScreen();
+    appendValue('10');
+    assert.equal(screen.value, "10", "El número '10' debería verse");
+    
+    appendValue('-');
+    assert.equal(screen.value, "10-", "El operador '-' debería concatenarse y mostrar '10-'");
+    
+    appendValue('5');
+    assert.equal(screen.value, "10-5", "El número '5' debería concatenarse y mostrar '10-5'");
+
+    appendValue('*');
+    assert.equal(screen.value, "10-5*", "El operador '*' debería concatenarse y mostrar '10-5*'");
+
+    appendValue('3');
+    assert.equal(screen.value, "10-5*3", "El número '3' debería concatenarse y mostrar '10-5*3'");
+
+    appendValue('/');
+    assert.equal(screen.value, "10-5*3/", "El operador '/' debería concatenarse y mostrar '10-5*3/'");
+
+    appendValue('2');
+    assert.equal(screen.value, "10-5*3/2", "El número '2' debería concatenarse y mostrar '10-5*3/2'");
+});
+
+// Verificacion de los requerimientos Funcionales
+//Primer requerimiento funcional: 3. Botón de resultado (=)
+QUnit.test("Prueba del Botón de Resultado", function(assert) {
+    let screen = document.getElementById('screen');
+
+    // 1. Prueba de suma básica
+    screen.value = "6+4";
+    calculate();
+    assert.equal(screen.value, "10", "El botón '=' debería mostrar 10 como resultado de 6+4");
+
+    // 2. Prueba de resta básica
+    clearScreen();
+    screen.value = "10-3";
+    calculate();
+    assert.equal(screen.value, "7", "El botón '=' debería mostrar 7 como resultado de 10-3");
+
+    // 3. Prueba de multiplicación
+    clearScreen();
+    screen.value = "2*5";
+    calculate();
+    assert.equal(screen.value, "10", "El botón '=' debería mostrar 10 como resultado de 2*5");
+
+    // 4. Prueba de división
+    clearScreen();
+    screen.value = "20/2";
+    calculate();
+    assert.equal(screen.value, "10", "El botón '=' debería mostrar 10 como resultado de 20/2");
+
+    // 5. Prueba de suma con un número negativo
+    clearScreen();
+    screen.value = "5+5-2";
+    calculate();
+    assert.equal(screen.value, "8", "El botón '=' debería mostrar 8 como resultado de 5+5-2");
+
+    // 6. Prueba de división #2
+    clearScreen();
+    screen.value = "10/1";
+    calculate();
+    assert.equal(screen.value, "10", "El botón '=' debería mostrar 10 como resultado de 10/1");
+
+    // 7. Prueba de combinación de operaciones con valoresss negativo
+    clearScreen();
+    screen.value = "-2+-3*2";
+    calculate();
+    assert.equal(screen.value, "-8", "El botón '=' debería mostrar 8 como resultado de -2+-3*2");
+
+    // 8. Prueba de operaciones
+    clearScreen();
+    screen.value = "2+3*2";
+    calculate();
+    assert.equal(screen.value, "8", "El botón '=' debería mostrar 10 como resultado de 2+3*2");
+
+    // 9. Prueba de operaciones mixtas
+    clearScreen();
+    screen.value = "10-2*3+4";
+    calculate();
+    assert.equal(screen.value, "8", "El botón '=' debería mostrar 8 como resultado de 10-2*3+4");
+
+    // 10. Prueba de suma de negativos
+    clearScreen();
+    screen.value = "-4+4";
+    calculate();
+    assert.equal(screen.value, "0", "El botón '=' debería mostrar 0 como resultado de -4+4");
+
+    // 11. Prueba de multiplicación por cero
+    clearScreen();
+    screen.value = "5*0";
+    calculate();
+    assert.equal(screen.value, "0", "El botón '=' debería mostrar 0 como resultado de 5*0");
+
+    // 12. Prueba de resta negativa
+    clearScreen();
+    screen.value = "5-8";
+    calculate();
+    assert.equal(screen.value, "-3", "El botón '=' debería mostrar -3 como resultado de 5-8");
+
+    // 13. Prueba de combinación de suma y resta
+    clearScreen();
+    screen.value = "1+1-1+1-1";
+    calculate();
+    assert.equal(screen.value, "1", "El botón '=' debería mostrar 1 como resultado de 1+1-1+1-1");
+
+    // 14. Prueba de multiplicación de negativos
+    clearScreen();
+    screen.value = "-2*-5";
+    calculate();
+    assert.equal(screen.value, "10", "El botón '=' debería mostrar 10 como resultado de -2*-5");
+
+    // 15. Prueba de combinación de todos los operadores
+    clearScreen();
+    screen.value = "10+2*3-4/2";
+    calculate();
+    assert.equal(screen.value, "14", "El botón '=' debería mostrar 14 como resultado de 10+2*3-4/2");
+
+    // 16. Prueba de combinación  diferentes operadores
+    clearScreen();
+    screen.value = "3+7*2-1";
+    calculate();
+    assert.equal(screen.value, "16", "El botón '=' debería mostrar 10 como resultado de 3+7*2-1");
+});
+
+// Verificacion de los requerimientos Funcionales
+//Primer requerimiento funcional: 4. Reinicio/Clear (C)
+QUnit.test("Prueba del Botón Clear (C)", function(assert) {
+    let screen = document.getElementById('screen');
+
+    // 1. Prueba de limpiar pantalla con contenido numérico
+    screen.value = "12345";
+    clearScreen();
+    assert.equal(screen.value, "", "La pantalla debería estar vacía después de presionar 'C' con números");
+
+    // 2. Prueba de limpiar pantalla con contenido de operación
+    screen.value = "10+5";
+    clearScreen();
+    assert.equal(screen.value, "", "La pantalla debería estar vacía después de presionar 'C' en medio de una operación");
+
+    // 3. Prueba de limpiar pantalla con número negativo
+    screen.value = "-8";
+    clearScreen();
+    assert.equal(screen.value, "", "La pantalla debería estar vacía después de presionar 'C' con un número negativo");
+
+    // 4. Prueba de limpiar pantalla con operación negativa
+    screen.value = "-8+2";
+    clearScreen();
+    assert.equal(screen.value, "", "La pantalla debería estar vacía después de presionar 'C' en una operación negativa");
+
+    // 5. Prueba de limpiar pantalla con múltiples operadores
+    screen.value = "10*5-3+2";
+    clearScreen();
+    assert.equal(screen.value, "", "La pantalla debería estar vacía después de presionar 'C' con múltiples operadores");
+
+    // 6. Prueba de limpiar pantalla después de una operación completa
+    screen.value = "10*5";
+    calculate();  // Realizamos una operación para simular un cálculo
+    clearScreen();
+    assert.equal(screen.value, "", "La pantalla debería estar vacía después de presionar 'C' tras un cálculo completo");
+
+    // 7. Prueba de limpiar pantalla con operación de división
+    screen.value = "50/5";
+    clearScreen();
+    assert.equal(screen.value, "", "La pantalla debería estar vacía después de presionar 'C' con una operación de división");
+
+    // 8. Prueba de limpiar pantalla con operación que incluye 2 operadores con valor negativo
+    screen.value = "-3+7*-2";
+    clearScreen();
+    assert.equal(screen.value, "", "La pantalla debería estar vacía después de presionar 'C' con paréntesis");
+
+    // 9. Prueba de limpiar pantalla con una operación mixta (suma, resta, multiplicación)
+    screen.value = "5+10*3-7";
+    clearScreen();
+    assert.equal(screen.value, "", "La pantalla debería estar vacía después de presionar 'C' con una operación mixta");
+
+    // 10. Prueba de limpiar pantalla con operación que involucra cero
+    screen.value = "0+5";
+    clearScreen();
+    assert.equal(screen.value, "", "La pantalla debería estar vacía después de presionar 'C' con una operación que involucra cero");
+
+    // 11. Prueba de limpiar pantalla con operación de división por cero
+    screen.value = "5/0";
+    clearScreen();
+    assert.equal(screen.value, "", "La pantalla debería estar vacía después de presionar 'C' tras una operación de división por cero");
+
+    // 12. Prueba de limpiar pantalla con operación que da resultado negativo
+    screen.value = "3-10";
+    clearScreen();
+    assert.equal(screen.value, "", "La pantalla debería estar vacía después de presionar 'C' tras una operación con resultado negativo");
+
+    // 13. Prueba de limpiar pantalla justo después de ingresar un número
+    screen.value = "6";
+    clearScreen();
+    assert.equal(screen.value, "", "La pantalla debería estar vacía después de presionar 'C' justo después de ingresar un número");
+
+    // 14. Prueba de limpiar pantalla después de ingresar varios números
+    screen.value = "123";
+    clearScreen();
+    assert.equal(screen.value, "", "La pantalla debería estar vacía después de presionar 'C' tras ingresar varios números");
+
+    // 15. Prueba de limpiar pantalla con un número negativo y un operador
+    screen.value = "-8+";
+    clearScreen();
+    assert.equal(screen.value, "", "La pantalla debería estar vacía después de presionar 'C' con un número negativo y un operador");
+
+    // 16. Prueba de limpiar pantalla con una operación de resta con resultado positivo
+    screen.value = "10-5";
+    clearScreen();
+    assert.equal(screen.value, "", "La pantalla debería estar vacía después de presionar 'C' tras una resta con resultado positivo");
+
+    // 17. Prueba de limpiar pantalla con número y operador no completado
+    screen.value = "7+";
+    clearScreen();
+    assert.equal(screen.value, "", "La pantalla debería estar vacía después de presionar 'C' tras ingresar un número y un operador incompleto");
+});
+
+// Verificacion de los requerimientos Funcionales
+//Primer requerimiento funcional: 5. Manejo de errores básicos
+QUnit.test("Prueba de Manejo de Errores - División por Cero", function(assert) {
+    let screen = document.getElementById('screen');
+
+    clearScreen();
+    screen.value = "5/0";
+    calculate();
+    assert.equal(screen.value, "Infinity", "Debería mostrarse 'Infinity' al intentar dividir por 0");
+});
+
+// Verificacion de los requerimientos Funcionales
+//Primer requerimiento funcional: 6. Validación de entradas
+QUnit.test("Validación de Entradas Inválidas", function(assert) {
+    let screen = document.getElementById('screen');
+    
+    clearScreen();
+    screen.value = "5++5";
+    calculate();
+    assert.equal(screen.value, "Error", "No se deberían permitir múltiples operadores consecutivos");
+    
+
+});
+
+</script>
